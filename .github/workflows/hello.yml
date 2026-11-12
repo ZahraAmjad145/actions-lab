@@ -1,24 +1,29 @@
-   name: Hello Actions
+@'
+name: Hello Actions
 
-   on:
-     push:
-     workflow_dispatch:
+on:
+  push:
+  workflow_dispatch:
 
-   jobs:
-     hello:
-       runs-on: ubuntu-latest
-       steps:
-         - name: Say hello
-           run: echo "Hello from GitHub Actions!"
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
 
-         - name: Show context
-           run: |
-             echo "Actor:      ${{ github.actor }}"
-             echo "Event:      ${{ github.event_name }}"
-             echo "Repository: ${{ github.repository }}"
-             echo "Ref:        ${{ github.ref }}"
-             echo "Commit:     ${{ github.sha }}"
-             echo "Runner OS:  ${{ runner.os }}"
+      - name: Say hello
+        run: echo "Hello from GitHub Actions!"
 
-         - name: List files
-           run: ls -la
+      - name: Show context
+        run: |
+          echo "Actor:      ${{ github.actor }}"
+          echo "Event:      ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Ref:        ${{ github.ref }}"
+          echo "Commit:     ${{ github.sha }}"
+          echo "Runner OS:  ${{ runner.os }}"
+
+      - name: List files
+        run: ls -la
+'@ | Set-Content -Encoding utf8 .github\workflows\hello.yml
